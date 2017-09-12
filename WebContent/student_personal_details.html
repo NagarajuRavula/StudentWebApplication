@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Personal Details</title>
+<style>
+div {
+	background-color: linen;
+}
+</style>
+</head>
+<body>
+	<script src="student_personal_details.js"></script>
+	<center>
+
+		<div id="divid">
+			<h1>Enter Student Personal Data..</h1>
+			<br>
+
+			<form action="studentEducationDetails.jsp" method="post">
+				<table>
+					<tr>
+						<td>Student Name:</td>
+						<td><input type="text" name="name" id="name" required onchange="return checkName()" ></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td><input type="email" name="email" required></td>
+					</tr>
+					<tr>
+						<td>Father Name:</td>
+						<td><input type="text" name="fatherName" required></td>
+					</tr>
+					<tr>
+						<td>Mother Name:</td>
+						<td><input type="text" name="motherName" required></td>
+					</tr>
+
+					<tr>
+						<td>Gender:</td>
+						<td><input type="radio" name="gender" value="male" checked>
+							Male <input type="radio" name="gender" value="female">
+							Female <input type="radio" name="gender" value="other">
+							Other</td>
+					</tr>
+
+
+
+
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Next" name="action"></td>
+				</table>
+
+			</form>
+		</div>
+	</center>
+
+</body>
+</html>

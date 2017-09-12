@@ -8,15 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.studentwebapplication.daoimpl.*;
 import com.studentwebapplication.model.*;
+import com.studentwebapplication.service.EditStudentDetailsService;
+import com.studentwebapplication.serviceimpl.*;
 
 @WebServlet("/EditServlet2")
-public class EditServlet2 extends HttpServlet {
+public class EditStudentDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    SchoolStudentDAO StudentDao=new SchoolStudentDAO();
+	EditStudentDetailsService editStd=new EditStudentDetailsServiceImpl();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");  
@@ -53,7 +53,7 @@ public class EditServlet2 extends HttpServlet {
 	    std.setClassrank(classRank);
 	    std.setUsername(username);
 	    std.setPassword(password);    
-        int status=StudentDao.update(std);  
+        int status=editStd.updateStudent(std) ;
         if(status>0){  
             response.sendRedirect("adminHome.jsp");  
         }else{  

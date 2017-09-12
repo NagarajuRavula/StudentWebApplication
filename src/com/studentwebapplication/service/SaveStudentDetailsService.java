@@ -2,8 +2,8 @@ package com.studentwebapplication.service;
 
 import com.studentwebapplication.model.*;
 
-public interface SaveService {
+public interface SaveStudentDetailsService {
 
-	public int saveUser(Student std);
+	public int saveStudent(Student std);
 	
 }

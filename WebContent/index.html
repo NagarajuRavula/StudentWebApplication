@@ -2,19 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Login</title>
 </head>
 <body>
-<center><h1>Student Management Application</h1></center>
+<script src="loginValidations.js"></script> 
+<center><h2>Student Management Application</h2>
 
-<center><h2>please Login to continue...</h2>
-<!-- <a href="student.html">Student</a> -->
-<!-- <a href="admin.html">Admin</a> -->
+<h3>please Login to continue...</h3>
 
-<form action="AuthenticationServlet" method="post">
-Name:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="name" required><br>
-Password:<input type="password" name="password" required><br>
-<input type="submit" value="Login" name="action"><br>
+<form action="authenticationServlet" method="post">
+<p id="msg"/><br>
+Name:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="name" id="name" required onchange="checkNameLength()"/><br><br>
+Password:<input type="password" name="password" id="password" required onchange="checkPasswordLength()"/><br><br>
+<input type="submit" value="Login" name="action"/><br>
 </form>
 </center>
 </body>
