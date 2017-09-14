@@ -180,8 +180,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				std.setMarks(rs.getDouble(8));
 				std.setAttendence(rs.getDouble(9));
 				std.setClassrank(rs.getInt(10));
-				std.setUsername(rs.getString(11));
-				std.setPassword(rs.getString(12));
+				std.setPassword(rs.getString(11));
 			}
 
 		} catch (Exception ex) {
@@ -200,22 +199,43 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 	}
 
 	@Override
-	public boolean isValidStudent(final String USERNAME, final String PASSWORD) {
-		boolean status = false;
+	public Student retrieveUser(String userName) {
+		
+		System.out.println("inside retrieve user");
+		System.out.println("inside retrieve user email-"+userName);
 		int studentid = 0;
+		Student student=null;
 		PreparedStatement ps = null;
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("select * from student where username=? and password=?");
-			ps.setString(1, USERNAME);
-			ps.setString(2, PASSWORD);
+			ps = con.prepareStatement("select * from student where email = ?");
+			ps.setString(1, userName);
 			rs = ps.executeQuery();
-			status = rs.next();
-			if (status) {
-				studentid = rs.getInt(1);
-
+			//status = rs.next();
+//			if (status) {
+//				studentid = rs.getInt(1);
+//
+//			}
+			if(rs.next())
+			{
+				student=new Student();
+				student.setId(rs.getInt(1));
+				student.setName(rs.getString(2));
+				student.setEmail(rs.getString(3));
+				student.setFatherName(rs.getString(4));
+				student.setMothername(rs.getString(5));
+				student.setGender(rs.getString(6));
+				student.setPresentClass(rs.getInt(7));
+				student.setMarks(rs.getDouble(8));
+				student.setAttendence(rs.getDouble(9));
+				student.setClassrank(rs.getInt(10));
+				student.setPassword(rs.getString(11));
+				
 			}
+			
+			
+			
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -230,13 +250,13 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			}
 		}
 
-		return status;
+		return student;
 	}
 
 	@Override
 	public boolean isExistingStudent(String email) {
 		
-		boolean status = false;
+		boolean status=false;
 		PreparedStatement ps = null;
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
@@ -244,9 +264,9 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps = con.prepareStatement("select * from student where email=?");
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			status = rs.next();
+			status=rs.next();
 			
-
+            System.out.println("Status from dao"+status);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

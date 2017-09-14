@@ -10,34 +10,44 @@ import com.studentwebapplication.service.StudentManagementService;
 
 public class StudentManagementServiceImpl implements StudentManagementService {
 
-	//SchoolStudentDAO studentDao = new SchoolStudentDAOImpl();
 	SchoolStudentDAO studentDao = (SchoolStudentDAO) ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
 
 	@Override
-	public boolean isValidUser(final String USERNAME, final String PASSWORD) {
-
-		return studentDao.isValidStudent(USERNAME, PASSWORD);
+	public boolean authenticateUser(String userName, String password) {
+		
+		System.out.println("inside auth user");
+		// retrieveUser(userName);
+		boolean status=false;
+		Student student=studentDao.retrieveUser(userName);
+		
+		if(student!=null){
+		String retrievePassword=student.getPassword();
+		System.out.println("outsisr auth user");
+		if(retrievePassword.equals(password))
+		   status= true;
+		}
+		return status;
 	}
-/**
- * get all student detail.
- */
+
+	/**
+	 * get all student detail.
+	 */
 	@Override
 	public List<Student> getAllStudents() {
 
-		
 		return studentDao.getAllStudents();
 
-			}
-	
+	}
+
 	@Override
 	public Student getStudentById(int id) {
 
 		return studentDao.getStudentById(id);
 	}
+
 	@Override
 	public boolean isExistingStudent(String email) {
-		
-		
+
 		return studentDao.isExistingStudent(email);
 	}
 

@@ -17,7 +17,6 @@ public class EditStudentDetailsServiceImpl  implements EditStudentDetailsService
 	@Override
 	public int updateStudent(Student std) {
 		
-		//SchoolStudentDAO studentDao=new SchoolStudentDAOImpl();
 		SchoolStudentDAO studentDao=(SchoolStudentDAO)ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
 	   return studentDao.update(std); 
 		

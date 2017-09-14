@@ -23,22 +23,19 @@ import ="com.studentwebapplication.service.*"
 
 
 <%   
- // SchoolStudentDAOImpl StudentDao=new SchoolStudentDAOImpl();
-StudentManagementService studentManagementService=(StudentManagementService)ObjectFactory.getInstance(StudentManagementServiceImpl.class);
+StudentManagementService studentManagementService = (StudentManagementService)ObjectFactory.getInstance(StudentManagementServiceImpl.class);
 
- List<Student> list=studentManagementService.getAllStudents();
+ List<Student> list = studentManagementService.getAllStudents();
   
 out.print("<table border='1' width='100%'");  
 out.print("<tr><th>Id</th><th>Name</th><th>Father Name</th><th>Email</th><th>Gender</th>  "
          +"<th>Edit</th><th>Delete</th></tr>");  
-for(Student std:list){  
+for(Student std : list){  
  out.print("<tr><td>"+std.getId()+"</td><td>"+std.getName()+"</td><td>"+std.getFatherName()+"</td>"  
          +"<td>"+std.getEmail()+"</td><td>"+std.getGender()+"</td><td><a href='editStudentDetails.jsp?id="+std.getId()+"'>edit</a></td>"  
          +"<td><a href='delete?id="+std.getId()+"'>delete</a></td></tr>");  
 }  
 out.print("</table>"); 
-
-
 
 %>
 

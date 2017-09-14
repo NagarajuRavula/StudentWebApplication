@@ -24,7 +24,7 @@ div {
 		String email = request.getParameter("email");
 		
 		 boolean status=studentManagementService.isExistingStudent(email);
-		 if (status == true) {
+		 if (status==true) {
 			 message="---Student with Email Already Exists---";
 		
 			request.setAttribute("message",message );
@@ -67,13 +67,10 @@ div {
 						<td><input type="number" name="classrank"></td>
 					</tr>
 					<tr>
-						<td><p>Enter the Student Login Credentials#</p></td>
+						<td><p>Enter the Student Login Password#</p></td>
 						<td></td>
 					</tr>
-					<tr>
-						<td>Username:</td>
-						<td><input type="text" name="username"></td>
-					</tr>
+					
 					<tr>
 						<td>Password:</td>
 						<td><input type="password" name="password"></td>

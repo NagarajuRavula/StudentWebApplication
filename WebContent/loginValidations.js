@@ -2,7 +2,7 @@ function checkNameLength()
 {
 	var name=document.getElementById("name").value
 	 var nameLength=name.length;
-	 if(nameLength<5||nameLength>15)
+	 if(nameLength<5||nameLength>50)
 		 {
 		    
 		// alert("Please enter correct password");

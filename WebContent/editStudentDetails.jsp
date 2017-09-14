@@ -16,18 +16,33 @@
 <title>edit details</title>
 </head>
 <body>    
+
+	<script src="studentDetailsValidation.js"></script>
 <%
-//SchoolStudentDAOImpl StudentDao=new SchoolStudentDAOImpl();
+
 StudentManagementService studentManagementServic=(StudentManagementService)ObjectFactory.getInstance(StudentManagementServiceImpl.class);
 String sid=request.getParameter("id");    
 int id = Integer.valueOf(sid);
 
 Student std=studentManagementServic.getStudentById(id);
 %>
+
+<%! String message = ""; %> 
+     <% message  = (String) request.getAttribute("message"); 
+ 
+    %> 
+    <%if(message!=null){
+    %>
+    <p><%=message %></p>
+    <%} %>
   <form action='edit' method='post'>
 	        <table>  
+    
 	        <tr><td></td><td><input type='hidden' name='id' value='<%= std.getId()%>'/></td></tr> 
 	        <tr><td>Name:</td><td><input type='text' name='name' value='<%= std.getName()%>'/></td></tr>
+	        
+	        <tr><td></td><td><input type='hidden' name='originalEmail' value='<%= std.getEmail()%>'/></td></tr>
+	        
 	          
 	        <tr><td>Email:</td><td><input type='email' name='email' value='<%= std.getEmail()%>'/></td></tr> 
 	          
