@@ -23,7 +23,7 @@ function checkPasswordLength()
 		 {
 		    
 		 alert("Please enter correct password");
-		 document.getElementById("password").value = "";
+		// document.getElementById("password").value = "";
 	     return false;
 		 
 		 }

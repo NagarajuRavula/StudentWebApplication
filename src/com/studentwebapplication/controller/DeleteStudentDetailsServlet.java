@@ -1,6 +1,9 @@
 package com.studentwebapplication.controller;
 
 import java.io.IOException;
+import com.studentwebapplication.servicefactory.*;
+import com.studentwebapplication.serviceimpl.DeleteStudentDetailsServiceImpl;
+
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -10,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.studentwebapplication.service.DeleteStudentDetailsService;
-import com.studentwebapplication.serviceimpl.DeleteStudentDetailsServiceImpl;
 
-@WebServlet("/DeleteServlet")
-public class StudentDeleteServlet extends HttpServlet {
+@WebServlet("/delete")
+public class DeleteStudentDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DeleteStudentDetailsService deleteStd = new DeleteStudentDetailsServiceImpl();
+	DeleteStudentDetailsService deleteStudentDetailsService = (DeleteStudentDetailsService) ObjectFactory
+			.getInstance(DeleteStudentDetailsServiceImpl.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,7 +29,7 @@ public class StudentDeleteServlet extends HttpServlet {
 
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
-		int status = deleteStd.deleteStudent(id);
+		int status = deleteStudentDetailsService.deleteStudent(id);
 		if (status > 0)
 			response.sendRedirect("adminHome.jsp");
 		else {

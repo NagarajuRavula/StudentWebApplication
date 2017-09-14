@@ -1,12 +1,12 @@
-package com.studentwebapplication.daoimpl;
+package com.studentwebapplication.utils;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
+import com.studentwebapplication.servicefactory.*;
 import java.sql.DriverManager;
 import java.util.Properties;
-import java.io.FileInputStream;;
 
 public class ConnectionUtils {
-
 	private static Connection con = null;
 
 	private ConnectionUtils() {
@@ -14,7 +14,8 @@ public class ConnectionUtils {
 	}
 
 	public static Connection getConnection() {
-		Properties props = new Properties();
+		//Properties props = new Properties();
+		Properties props = (Properties)ObjectFactory.getInstance(Properties.class);
 		FileInputStream fis = null;
 		try {
 
@@ -29,7 +30,8 @@ public class ConnectionUtils {
 		}
 
 		return con;
-
+        
 	}
+
 
 }

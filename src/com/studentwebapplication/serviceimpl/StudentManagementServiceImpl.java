@@ -1,6 +1,7 @@
 package com.studentwebapplication.serviceimpl;
 
 import java.util.List;
+import com.studentwebapplication.servicefactory.*;
 
 import com.studentwebapplication.dao.SchoolStudentDAO;
 import com.studentwebapplication.daoimpl.SchoolStudentDAOImpl;
@@ -9,13 +10,13 @@ import com.studentwebapplication.service.StudentManagementService;
 
 public class StudentManagementServiceImpl implements StudentManagementService {
 
-	public static StudentManagementServiceImpl stdAuth = null;
-	SchoolStudentDAO studentDao = new SchoolStudentDAOImpl();
+	//SchoolStudentDAO studentDao = new SchoolStudentDAOImpl();
+	SchoolStudentDAO studentDao = (SchoolStudentDAO) ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
 
 	@Override
-	public boolean isValidUser(String username, String password) {
+	public boolean isValidUser(final String USERNAME, final String PASSWORD) {
 
-		return studentDao.isValidStudent(username, password);
+		return studentDao.isValidStudent(USERNAME, PASSWORD);
 	}
 /**
  * get all student detail.
@@ -23,18 +24,21 @@ public class StudentManagementServiceImpl implements StudentManagementService {
 	@Override
 	public List<Student> getAllStudents() {
 
-		List<Student> allStudents;
-		allStudents = studentDao.getAllStudents();
+		
+		return studentDao.getAllStudents();
 
-		return allStudents;
-	}
+			}
 	
 	@Override
 	public Student getStudentById(int id) {
 
-		Student std;
-		std = studentDao.getStudentById(id);
-		return std;
+		return studentDao.getStudentById(id);
+	}
+	@Override
+	public boolean isExistingStudent(String email) {
+		
+		
+		return studentDao.isExistingStudent(email);
 	}
 
 }

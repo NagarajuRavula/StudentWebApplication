@@ -1,6 +1,9 @@
 package com.studentwebapplication.controller;
 
 import java.io.IOException;
+import com.studentwebapplication.servicefactory.*;
+import com.studentwebapplication.serviceimpl.EditStudentDetailsServiceImpl;
+
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -10,13 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.studentwebapplication.model.*;
 import com.studentwebapplication.service.EditStudentDetailsService;
-import com.studentwebapplication.serviceimpl.*;
-
-@WebServlet("/EditServlet2")
+@WebServlet("/edit")
 public class EditStudentDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	EditStudentDetailsService editStd=new EditStudentDetailsServiceImpl();
+	//EditStudentDetailsService editStudentDetailsService=new EditStudentDetailsServiceImpl();
+	EditStudentDetailsService editStudentDetailsService=(EditStudentDetailsService)ObjectFactory.getInstance(EditStudentDetailsServiceImpl.class);
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");  
@@ -53,7 +55,7 @@ public class EditStudentDetailsServlet extends HttpServlet {
 	    std.setClassrank(classRank);
 	    std.setUsername(username);
 	    std.setPassword(password);    
-        int status=editStd.updateStudent(std) ;
+        int status=editStudentDetailsService.updateStudent(std) ;
         if(status>0){  
             response.sendRedirect("adminHome.jsp");  
         }else{  

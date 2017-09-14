@@ -5,8 +5,10 @@
     import="com.studentwebapplication.model.*"
     import="com.studentwebapplication.serviceimpl.*"
     import="com.studentwebapplication.service.*"
+    import="com.studentwebapplication.servicefactory.*"
     
       %>
+      
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,13 +18,13 @@
 <body>    
 <%
 //SchoolStudentDAOImpl StudentDao=new SchoolStudentDAOImpl();
-StudentManagementService stdUtil=new StudentManagementServiceImpl();
+StudentManagementService studentManagementServic=(StudentManagementService)ObjectFactory.getInstance(StudentManagementServiceImpl.class);
 String sid=request.getParameter("id");    
 int id = Integer.valueOf(sid);
 
-Student std=stdUtil.getStudentById(id);
+Student std=studentManagementServic.getStudentById(id);
 %>
-  <form action='EditServlet2' method='post'>
+  <form action='edit' method='post'>
 	        <table>  
 	        <tr><td></td><td><input type='hidden' name='id' value='<%= std.getId()%>'/></td></tr> 
 	        <tr><td>Name:</td><td><input type='text' name='name' value='<%= std.getName()%>'/></td></tr>

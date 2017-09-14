@@ -10,7 +10,7 @@ public interface StudentManagementService {
 	 * @param password
 	 * @return
 	 */
-	public boolean isValidUser(String username,String password);
+	public boolean isValidUser(final String USERNAME,final String PASSWORD);
 	public List<Student> getAllStudents();
 	/**
 	 * 
@@ -18,5 +18,6 @@ public interface StudentManagementService {
 	 * @return
 	 */
 	public Student getStudentById(int id);
+	public boolean isExistingStudent(String email);
 	
 }

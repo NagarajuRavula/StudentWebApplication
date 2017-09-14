@@ -1,6 +1,10 @@
 package com.studentwebapplication.controller;
 
 import java.io.IOException;
+import com.studentwebapplication.servicefactory.*;
+import com.studentwebapplication.serviceimpl.EditStudentDetailsServiceImpl;
+import com.studentwebapplication.serviceimpl.SaveStudentDetailsServiceImpl;
+
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -11,13 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.studentwebapplication.model.Student;
 import com.studentwebapplication.service.SaveStudentDetailsService;
-import com.studentwebapplication.serviceimpl.SaveStudentDetailsServiceImpl;
 
-@WebServlet("/SaveServlet2")
+@WebServlet("/save")
 public class SaveStudentDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	SaveStudentDetailsService saveStd =new  SaveStudentDetailsServiceImpl();
+	SaveStudentDetailsService saveStudentDetailsService =(SaveStudentDetailsService)ObjectFactory.getInstance(SaveStudentDetailsServiceImpl.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -54,7 +57,7 @@ public class SaveStudentDetailsServlet extends HttpServlet {
 		std.setClassrank(classRank);
 		std.setUsername(username);
 		std.setPassword(password);
-		int status = saveStd.saveStudent(std);
+		int status = saveStudentDetailsService.saveStudent(std);
 		if (status > 0) {
 			response.sendRedirect("adminHome.jsp");
 		} else {

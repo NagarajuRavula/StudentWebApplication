@@ -10,5 +10,6 @@ public interface SchoolStudentDAO {
 	public List<Student> getAllStudents();
 	public boolean isValidStudent(String username,String password);
 	public Student getStudentById(int id);
+	public boolean isExistingStudent(String email);
 	
 }

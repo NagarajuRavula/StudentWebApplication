@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.studentwebapplication.dao.*;
 import com.studentwebapplication.model.Student;
+import com.studentwebapplication.utils.*;
 
 public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
@@ -199,7 +200,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 	}
 
 	@Override
-	public boolean isValidStudent(String username, String password) {
+	public boolean isValidStudent(final String USERNAME, final String PASSWORD) {
 		boolean status = false;
 		int studentid = 0;
 		PreparedStatement ps = null;
@@ -207,8 +208,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement("select * from student where username=? and password=?");
-			ps.setString(1, username);
-			ps.setString(2, password);
+			ps.setString(1, USERNAME);
+			ps.setString(2, PASSWORD);
 			rs = ps.executeQuery();
 			status = rs.next();
 			if (status) {
@@ -229,6 +230,37 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			}
 		}
 
+		return status;
+	}
+
+	@Override
+	public boolean isExistingStudent(String email) {
+		
+		boolean status = false;
+		PreparedStatement ps = null;
+		Connection con = ConnectionUtils.getConnection();
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement("select * from student where email=?");
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			status = rs.next();
+			
+
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+
+			try {
+				rs.close();
+				ps.close();
+				con.close();
+			} catch (Exception e) {
+				System.err.println(e);
+			}
+		}
+		
+		
 		return status;
 	}
 

@@ -1,5 +1,6 @@
 package com.studentwebapplication.serviceimpl;
 import com.studentwebapplication.dao.SchoolStudentDAO;
+import com.studentwebapplication.servicefactory.*;
 import com.studentwebapplication.daoimpl.SchoolStudentDAOImpl;
 import com.studentwebapplication.service.*;
 public class DeleteStudentDetailsServiceImpl implements DeleteStudentDetailsService {
@@ -15,9 +16,11 @@ public class DeleteStudentDetailsServiceImpl implements DeleteStudentDetailsServ
 	
 	@Override
 	public int deleteStudent(int id) {
-		SchoolStudentDAO studentDao=new SchoolStudentDAOImpl();
-		int status= studentDao.delete(id);
-		return status;
+		//SchoolStudentDAO studentDao=new SchoolStudentDAOImpl();
+		SchoolStudentDAO studentDao=(SchoolStudentDAO)ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
+		
+		return studentDao.delete(id);
+	
 	}
 	
 }
