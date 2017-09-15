@@ -12,16 +12,13 @@ public class SaveStudentDetailsServiceImpl implements SaveStudentDetailsService 
 
 	}
 
-
 	@Override
 	public int saveStudent(Student std) {
 		// TODO Auto-generated method stub
 
-		//SchoolStudentDAO studentDao = new SchoolStudentDAOImpl();
-		SchoolStudentDAO studentDao = (SchoolStudentDAO)ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
+		// SchoolStudentDAO studentDao = new SchoolStudentDAOImpl();
+		SchoolStudentDAO studentDao = (SchoolStudentDAO) ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
 		return studentDao.save(std);
 	}
-
-
 
 }

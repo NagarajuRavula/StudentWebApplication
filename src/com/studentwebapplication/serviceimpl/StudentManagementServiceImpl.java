@@ -14,17 +14,15 @@ public class StudentManagementServiceImpl implements StudentManagementService {
 
 	@Override
 	public boolean authenticateUser(String userName, String password) {
-		
-		System.out.println("inside auth user");
+
 		// retrieveUser(userName);
-		boolean status=false;
-		Student student=studentDao.retrieveUser(userName);
-		
-		if(student!=null){
-		String retrievePassword=student.getPassword();
-		System.out.println("outsisr auth user");
-		if(retrievePassword.equals(password))
-		   status= true;
+		boolean status = false;
+		Student student = studentDao.retrieveUser(userName);
+
+		if (student != null) {
+			String retrievePassword = student.getPassword();
+			if (retrievePassword.equals(password))
+				status = true;
 		}
 		return status;
 	}

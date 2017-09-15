@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"
 	import="com.studentwebapplication.servicefactory.*"
 	import="com.studentwebapplication.serviceimpl.*"
-	import="com.studentwebapplication.service.*"%>
+	import="com.studentwebapplication.service.*"
+	import="java.io.FileInputStream" import="java.io.IOException"
+	import="java.util.Properties"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,17 +17,30 @@ div {
 }
 </style>
 <body>
-<%!String message=""; %>
+	<%!String message=""; %>
 	<%
 		StudentManagementService studentManagementService = (StudentManagementService) ObjectFactory
 				.getInstance(StudentManagementServiceImpl.class);
-
+	Properties props = (Properties)ObjectFactory.getInstance(Properties.class);
+	FileInputStream fis = null;
+	try{
+		fis = new FileInputStream("/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
+		props.load(fis);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		
+	}
+	
+	
+	
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		
 		 boolean status=studentManagementService.isExistingStudent(email);
 		 if (status==true) {
-			 message="---Student with Email Already Exists---";
+			 message=email+" "+props.getProperty("EXISTING_USER");
 		
 			request.setAttribute("message",message );
 			
@@ -70,7 +85,7 @@ div {
 						<td><p>Enter the Student Login Password#</p></td>
 						<td></td>
 					</tr>
-					
+
 					<tr>
 						<td>Password:</td>
 						<td><input type="password" name="password"></td>

@@ -3,7 +3,6 @@ package com.studentwebapplication.servicefactory;
 public class ObjectFactory {
 
 	public static Object getInstance(Class className) {
-		
 
 		Class name = null;
 

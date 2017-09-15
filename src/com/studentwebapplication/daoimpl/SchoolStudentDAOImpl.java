@@ -21,8 +21,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 		try {
 
 			ps = con.prepareStatement(
-					"insert into student(name,email,fatherName,motherName,gender,class,marks,attendence,classrank,username,password) "
-							+ "values (?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into student(name,email,fatherName,motherName,gender,class,marks,attendence,classrank,password) "
+							+ "values (?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, std.getName());
 			ps.setString(2, std.getEmail());
 			ps.setString(3, std.getFatherName());
@@ -32,8 +32,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps.setDouble(7, std.getMarks());
 			ps.setDouble(8, std.getAttendence());
 			ps.setInt(9, std.getClassrank());
-			ps.setString(10, std.getUsername());
-			ps.setString(11, std.getPassword());
+			ps.setString(10, std.getPassword());
 
 			status = ps.executeUpdate();
 		} catch (Exception ex) {
@@ -84,7 +83,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 		int status = 0;
 		try {
 			ps = con.prepareStatement(
-					"update student set name=?,email=?,fatherName=?,motherName=?,gender=?,class=?,marks=?,attendence=?,classrank=?,username=?,password=? where id=?");
+					"update student set name=?,email=?,fatherName=?,motherName=?,gender=?,class=?,marks=?,attendence=?,classrank=?,password=? where id=?");
 			ps.setString(1, std.getName());
 			ps.setString(2, std.getEmail());
 			ps.setString(3, std.getFatherName());
@@ -94,9 +93,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps.setDouble(7, std.getMarks());
 			ps.setDouble(8, std.getAttendence());
 			ps.setInt(9, std.getClassrank());
-			ps.setString(10, std.getUsername());
-			ps.setString(11, std.getPassword());
-			ps.setInt(12, std.getId());
+			ps.setString(10, std.getPassword());
+			ps.setInt(11, std.getId());
 			status = ps.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -135,8 +133,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				std.setMarks(rs.getDouble(8));
 				std.setAttendence(rs.getDouble(9));
 				std.setClassrank(rs.getInt(10));
-				std.setUsername(rs.getString(11));
-				std.setPassword(rs.getString(12));
+				std.setPassword(rs.getString(11));
 				list.add(std);
 			}
 
@@ -200,11 +197,9 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
 	@Override
 	public Student retrieveUser(String userName) {
-		
-		System.out.println("inside retrieve user");
-		System.out.println("inside retrieve user email-"+userName);
+
 		int studentid = 0;
-		Student student=null;
+		Student student = null;
 		PreparedStatement ps = null;
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
@@ -212,14 +207,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps = con.prepareStatement("select * from student where email = ?");
 			ps.setString(1, userName);
 			rs = ps.executeQuery();
-			//status = rs.next();
-//			if (status) {
-//				studentid = rs.getInt(1);
-//
-//			}
-			if(rs.next())
-			{
-				student=new Student();
+			if (rs.next()) {
+				student = new Student();
 				student.setId(rs.getInt(1));
 				student.setName(rs.getString(2));
 				student.setEmail(rs.getString(3));
@@ -231,11 +220,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				student.setAttendence(rs.getDouble(9));
 				student.setClassrank(rs.getInt(10));
 				student.setPassword(rs.getString(11));
-				
+
 			}
-			
-			
-			
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -255,8 +241,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
 	@Override
 	public boolean isExistingStudent(String email) {
-		
-		boolean status=false;
+
+		boolean status = false;
 		PreparedStatement ps = null;
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
@@ -264,9 +250,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps = con.prepareStatement("select * from student where email=?");
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			status=rs.next();
-			
-            System.out.println("Status from dao"+status);
+			status = rs.next();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -279,8 +263,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				System.err.println(e);
 			}
 		}
-		
-		
+
 		return status;
 	}
 

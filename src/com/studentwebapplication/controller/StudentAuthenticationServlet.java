@@ -1,6 +1,8 @@
 package com.studentwebapplication.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,15 +19,24 @@ import com.studentwebapplication.serviceimpl.StudentManagementServiceImpl;
 public class StudentAuthenticationServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	private StudentManagementService studentManagementService;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		final String USERNAME = request.getParameter("name");
+		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(
+					"/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
+			props.load(fis);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		final String USERNAME = request.getParameter("email");
 		final String PASSWORD = request.getParameter("password");
-		
+		StudentManagementService studentManagementService = null;
+
 		String message;
 		RequestDispatcher rd = null;
 
@@ -35,11 +46,11 @@ public class StudentAuthenticationServlet extends HttpServlet {
 		boolean status = studentManagementService.authenticateUser(USERNAME, PASSWORD);
 
 		if (!status) {
-			message = "---Invalid Login Credentials---";
+			message = props.getProperty("INVALID_CREDENTIALS");
 			request.setAttribute("message", message);
 			rd = request.getRequestDispatcher("index.jsp");
 		} else {
-			if (USERNAME.equals("nagaraju321@gmail.com")) {
+			if (USERNAME.equals("admin@gmail.com")) {
 				rd = request.getRequestDispatcher("adminHome.jsp");
 			} else {
 				rd = request.getRequestDispatcher("studentHome.jsp");
