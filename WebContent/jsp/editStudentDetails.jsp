@@ -23,15 +23,17 @@ int id = Integer.valueOf(sid);
 Student std=studentManagementServic.getStudentById(id);
 %>
 
-	<%! String message = ""; %>
+	<%! String message = "";
+	%>
 	<% message  = (String) request.getAttribute("message"); 
  
     %>
 	<%if(message!=null){
     %>
 	<p><%=message %></p>
-	<%} %>
-	<form action='edit' method='post'>
+	<%
+	} %>
+	<form action=${pageContext.request.contextPath}/edit method='post'>
 		<table>
 
 			<tr>

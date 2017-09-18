@@ -48,12 +48,12 @@ public class StudentAuthenticationServlet extends HttpServlet {
 		if (!status) {
 			message = props.getProperty("INVALID_CREDENTIALS");
 			request.setAttribute("message", message);
-			rd = request.getRequestDispatcher("index.jsp");
+			rd = request.getRequestDispatcher("./jsp/login.jsp");
 		} else {
 			if (USERNAME.equals("admin@gmail.com")) {
-				rd = request.getRequestDispatcher("adminHome.jsp");
+				rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 			} else {
-				rd = request.getRequestDispatcher("studentHome.jsp");
+				rd = request.getRequestDispatcher("./jsp/studentHome.jsp");
 			}
 		}
 		rd.forward(request, response);

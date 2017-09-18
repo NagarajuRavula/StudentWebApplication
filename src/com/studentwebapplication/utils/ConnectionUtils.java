@@ -14,7 +14,6 @@ public class ConnectionUtils {
 	}
 
 	public static Connection getConnection() {
-		// Properties props = new Properties();
 		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
 		FileInputStream fis = null;
 		try {

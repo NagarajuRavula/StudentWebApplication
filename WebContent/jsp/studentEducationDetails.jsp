@@ -56,7 +56,7 @@ div {
 <body>
 	<center>
 		<div>
-			<form action='save' method='post'>
+			<form action='../save' method='post'>
 				<input type='hidden' name='fatherName' value='<%=fatherName%>'>
 				<input type='hidden' name='motherName' value='<%=motherName%>'>
 				<input type='hidden' name='name' value='<%=name%>'> <input

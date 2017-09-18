@@ -51,7 +51,7 @@ public class EditStudentDetailsServlet extends HttpServlet {
 				message = email + "  " + props.getProperty("EXISTING_USER");
 				request.setAttribute("id", id);
 				request.setAttribute("message", message);
-				rd = request.getRequestDispatcher("editStudentDetails.jsp");
+				rd = request.getRequestDispatcher("./jsp/editStudentDetails.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -70,13 +70,13 @@ public class EditStudentDetailsServlet extends HttpServlet {
 		std.setPassword(request.getParameter("password"));
 		int status = editStudentDetailsService.updateStudent(std);
 		if (status > 0) {
-			rd = request.getRequestDispatcher("adminHome.jsp");
+			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 
 		} else {
 			message = props.getProperty("DATABASE_ERROR");
 			request.setAttribute("message", message);
 			request.setAttribute("id", id);
-			rd = request.getRequestDispatcher("editStudentDetails.jsp");
+			rd = request.getRequestDispatcher("./jsp/editStudentDetails.jsp");
 		}
 		rd.forward(request, response);
 

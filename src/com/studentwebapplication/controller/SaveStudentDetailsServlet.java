@@ -51,7 +51,7 @@ public class SaveStudentDetailsServlet extends HttpServlet {
 		std.setPassword(request.getParameter("password"));
 		int status = saveStudentDetailsService.saveStudent(std);
 		if (status > 0) {
-			rd = request.getRequestDispatcher("adminHome.jsp");
+			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 		} else {
 			message = props.getProperty("DATABASE_ERROR");
 			request.setAttribute("message", message);

@@ -43,11 +43,11 @@ public class DeleteStudentDetailsServlet extends HttpServlet {
 		if (status > 0) {
 			message = props.getProperty("DELETE_SUCCESS");
 			request.setAttribute("deleteMessage", message);
-			rd = request.getRequestDispatcher("adminHome.jsp");
+			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 		} else {
 			message = props.getProperty("DATABASE_ERROR");
 			request.setAttribute("deleteMessage", message);
-			rd = request.getRequestDispatcher("adminHome.jsp");
+			rd = request.getRequestDispatcher(".jsp/adminHome.jsp");
 		}
 
 		rd.forward(request, response);

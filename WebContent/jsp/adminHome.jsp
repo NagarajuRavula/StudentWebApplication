@@ -10,37 +10,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Admin Home</title>
+<link rel="stylesheet"
+	href=${pageContext.request.contextPath}/style/adminHome.css>
 </head>
-<style>
-.alert {
-    padding: 20px;
-    background-color: #f44336;
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
-}
-.closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.closebtn:hover {
-    color: black;
-}
-</style>
 <body>
+<script src=${pageContext.request.contextPath}/js/adminHome.js></script>
 
-
+   
 	<center>
+	<div class="header">
+		<h2 >Student Management Application</h2>
+
+	</div>	
 		<h1>Welcome Admin</h1>
-		<a href="studentPersonalDetails.jsp">Add Student+</a><br> <br>
+		<a href="jsp/studentPersonalDetails.jsp">Add Student+</a><br> <br>
 		<a href="index.jsp">Home</a><br> <br>
 		<h3>Students List</h3>
 	</center>
@@ -56,6 +39,7 @@
 
 		List<Student> studentList = studentManagementService.getAllStudents();
 	%>
+	<div class="tableDiv">
 	<table border='1' width='100%'>
 		<tr>
 			<th>Id</th>
@@ -76,8 +60,8 @@
 			<td><%=student.getFatherName()%></td>
 			<td><%=student.getEmail()%></td>
 			<td><%=student.getGender()%></td>
-			<td><a href='editStudentDetails.jsp?id=<%=student.getId()%>'>edit</a></td>
-			<td><a href='delete?id=<%=student.getId()%>'>delete</a></td>
+			<td><a href='jsp/editStudentDetails.jsp?id=<%=student.getId()%>'>edit</a></td>
+			<td><a href='./delete?id=<%=student.getId()%>'>delete</a></td>
 		</tr>
 
 		<%
@@ -85,6 +69,7 @@
 		%>
 
 	</table>
+	</div>
 	
 	
 	
@@ -104,19 +89,7 @@
 			<%
 				}
 			%>
-
-<script>
-var close = document.getElementsByClassName("closebtn");
-var i;
-
-for (i = 0; i < close.length; i++) {
-    close[i].onclick = function(){
-        var div = this.parentElement;
-        div.style.opacity = "0";
-        setTimeout(function(){ div.style.display = "none"; }, 600);
-    }
-}
-</script>
+ 
 
 </body>
 </html>
