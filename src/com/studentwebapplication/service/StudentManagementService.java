@@ -10,7 +10,7 @@ public interface StudentManagementService {
 	 * @param password
 	 * @return
 	 */
-	public boolean authenticateUser(final String USERNAME,final String PASSWORD);
+	public Student authenticateUser(final String USERNAME,final String PASSWORD);
 	public List<Student> getAllStudents();
 	/**
 	 * 

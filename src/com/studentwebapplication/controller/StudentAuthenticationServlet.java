@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.studentwebapplication.model.Student;
 import com.studentwebapplication.service.StudentManagementService;
 import com.studentwebapplication.servicefactory.ObjectFactory;
 import com.studentwebapplication.serviceimpl.StudentManagementServiceImpl;
@@ -36,6 +38,8 @@ public class StudentAuthenticationServlet extends HttpServlet {
 		final String USERNAME = request.getParameter("email");
 		final String PASSWORD = request.getParameter("password");
 		StudentManagementService studentManagementService = null;
+		HttpSession session=null;
+		session=request.getSession();
 
 		String message;
 		RequestDispatcher rd = null;
@@ -43,16 +47,18 @@ public class StudentAuthenticationServlet extends HttpServlet {
 		studentManagementService = (StudentManagementService) ObjectFactory
 				.getInstance(StudentManagementServiceImpl.class);
 
-		boolean status = studentManagementService.authenticateUser(USERNAME, PASSWORD);
+		Student student = studentManagementService.authenticateUser(USERNAME, PASSWORD);
 
-		if (!status) {
+		if (student==null) {
 			message = props.getProperty("INVALID_CREDENTIALS");
 			request.setAttribute("message", message);
 			rd = request.getRequestDispatcher("./jsp/login.jsp");
 		} else {
+			session.setAttribute("logedInUser", student.getEmail());
 			if (USERNAME.equals("admin@gmail.com")) {
 				rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 			} else {
+				session.setAttribute("studentId", student.getId());
 				rd = request.getRequestDispatcher("./jsp/studentHome.jsp");
 			}
 		}

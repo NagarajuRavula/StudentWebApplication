@@ -1,0 +1,37 @@
+ .header{
+	background-color: #ceb291;
+	margin-left: 100px;
+    margin-right: 100px;
+        height: 40px;
+}
+.header:hover{
+	background: pink;
+	
+}
+b#email {
+    color: chocolate;
+}
+p#logedInName  {
+    margin-left: 830px;
+}
+a{
+	background-color: pink;
+}
+a#logout{
+	margin-left: 1030px;
+}
+body{
+background: #76b852        
+}
+th {
+    background-color: brown;
+}
+.tableDiv
+{
+	background: #877678;
+	    margin-left: 100px;
+    margin-right: 100px;
+}
+tr:hover {
+          background-color: #729fcf;
+        }

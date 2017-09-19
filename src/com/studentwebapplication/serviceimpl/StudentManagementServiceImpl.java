@@ -13,18 +13,18 @@ public class StudentManagementServiceImpl implements StudentManagementService {
 	SchoolStudentDAO studentDao = (SchoolStudentDAO) ObjectFactory.getInstance(SchoolStudentDAOImpl.class);
 
 	@Override
-	public boolean authenticateUser(String userName, String password) {
-
-		// retrieveUser(userName);
-		boolean status = false;
-		Student student = studentDao.retrieveUser(userName);
+	public Student authenticateUser(String userName, String password) {
+		Student student=null;
+		student = studentDao.retrieveUser(userName);
 
 		if (student != null) {
 			String retrievePassword = student.getPassword();
 			if (retrievePassword.equals(password))
-				status = true;
+				return student;
+			else
+				return null;
 		}
-		return status;
+		return student;
 	}
 
 	/**

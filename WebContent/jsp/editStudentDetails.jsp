@@ -10,10 +10,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>edit details</title>
+
+<link rel="stylesheet"
+	href=${pageContext.request.contextPath}/style/editStudentDetails.css>
 </head>
 <body>
 
-	<script src="studentDetailsValidation.js"></script>
+	<script src=${pageContext.request.contextPath}/js/studentDetailsValidation.js></script>
+	
+	
+	
 	<%
 
 StudentManagementService studentManagementServic=(StudentManagementService)ObjectFactory.getInstance(StudentManagementServiceImpl.class);
@@ -22,6 +28,11 @@ int id = Integer.valueOf(sid);
 
 Student std=studentManagementServic.getStudentById(id);
 %>
+<center>
+<div class="header">
+		<h2 >Student Management Application</h2>
+
+	</div>
 
 	<%! String message = "";
 	%>
@@ -33,93 +44,68 @@ Student std=studentManagementServic.getStudentById(id);
 	<p><%=message %></p>
 	<%
 	} %>
-	<form action=${pageContext.request.contextPath}/edit method='post'>
-		<table>
-
-			<tr>
-				<td></td>
-				<td><input type='hidden' name='id' value='<%= std.getId()%>' /></td>
-			</tr>
-			<tr>
-				<td>Name:</td>
-				<td><input type='text' name='name' value='<%= std.getName()%>' /></td>
-			</tr>
-
-			<tr>
-				<td></td>
-				<td><input type='hidden' name='originalEmail'
-					value='<%= std.getEmail()%>' /></td>
-			</tr>
 
 
-			<tr>
-				<td>Email:</td>
-				<td><input type='email' name='email'
-					value='<%= std.getEmail()%>' /></td>
-			</tr>
-
-			<tr>
-				<td>Father Name:</td>
-				<td><input type='text' name='fatherName'
-					value='<%= std.getFatherName()%>' /></td>
-			</tr>
-			<tr>
-				<td>Mother Name:</td>
-				<td><input type='text' name='motherName'
-					value='<%= std.getMothername()%>' /></td>
-			</tr>
 
 
-			<tr>
-				<td>Gender:</td>
-				<td><input type='radio' name='gender' value='male' checked />Male</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type='radio' name='gender' value='female' />Female</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type='radio' name='gender' value='other' />Other</td>
-			</tr>
+<button id="editButton" onclick="enableFileds()" >Edit Details</button>
+<div class="container">  
+  <form id="contact" action=${pageContext.request.contextPath}/edit method="post">
+    <h3>Student Details</h3>
+    <h4>click on Edit button to change details</h4>
+    <fieldset id="formFields" disabled>
+    <fieldset>
+     <input  type="hidden" id="id" name="id" value='<%= std.getId()%>'>
+    </fieldset>
+    <fieldset>
+     <input type="text" name="name" id="name" tabindex="1" value='<%= std.getName()%>' data-tooltip aria-haspopup="true" title="Student Name" required>
+    </fieldset>
+    <fieldset>
+     <input  type="email" id="email" name="email" tabindex="2" value='<%= std.getEmail()%>' data-tooltip aria-haspopup="true" title="Student Email"  required>
+    </fieldset>
+    <fieldset>
+     <input  type="hidden" id="'originalEmail'" name="originalEmail" value='<%= std.getEmail()%>' required>
+    </fieldset>
+    <fieldset>
+      <input type="text" tabindex="3" id="fatherName" name="fatherName" value='<%= std.getFatherName()%>' data-tooltip aria-haspopup="true" title="Student Father Name"  required>
+    </fieldset>
+    <fieldset>
+      <input  type="text" tabindex="4" id="motherName" name="motherName" value='<%= std.getMothername()%>' data-tooltip aria-haspopup="true" title="Student Mother Name"  required>
+    </fieldset>
+    <fieldset>
+      <select   name="gender" id="gender" data-tooltip aria-haspopup="true" title="Student Gender" >
+      <option>Gender</option>
+       <option>Male</option>
+       <option>Female</option>
+       <option>Other</option>
+       </select>
+    </fieldset>
+    
+     <fieldset>
+      <input type="number" name="presentClass" id="presentClass" min=1 max=10  tabindex="6" value='<%= std.getPresentClass()%>' data-tooltip aria-haspopup="true" title="Student Present Class" required>
+    </fieldset>
+    <fieldset>
+      <input type="number"  name="marks" id="marks" tabindex="7" min=1 max=600 value='<%= std.getMarks()%>' data-tooltip aria-haspopup="true" title="Student Marks" required>
+    </fieldset>
+    <fieldset>
+      <input  type="number" tabindex="8"  min=1 max=100 name="attendence" id="attendence"  value='<%= std.getAttendence()%>' data-tooltip aria-haspopup="true" title="Student Attendence"  required>
+    </fieldset>
+    <fieldset>
+      <input type="number" tabindex="9" name="classrank" id="classrank" value='<%= std.getClassrank()%>' data-tooltip aria-haspopup="true" title="Student Class Rank"  required >
+    </fieldset>
+    <fieldset>
+      <input  type="password" tabindex="10" name="password" id="password" value='<%= std.getPassword()%>' data-tooltip aria-haspopup="true" title="Student Login Password"  required>
+    </fieldset>
+    <fieldset>
+      <button name="submit" type="submit" id="educational-submit" >Update details</button>
+    </fieldset>
+    
+    </fieldset>
+  </form>
+</div>
 
 
-			<tr>
-				<td>Class Standard:</td>
-				<td><input type='number' name='presentClass'
-					value='<%= std.getPresentClass()%>' /></td>
-			</tr>
-
-			<tr>
-				<td>Marks:</td>
-				<td><input type='number' name='marks'
-					value='<%= std.getMarks()%>' /></td>
-			</tr>
-
-			<tr>
-				<td>Attendence:</td>
-				<td><input type='number' name='attendence'
-					value='<%= std.getAttendence()%>' /></td>
-			</tr>
-			<tr>
-				<td>Class Rank:</td>
-				<td><input type='number' name='classrank'
-					value='<%= std.getClassrank()%>' /></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='password'
-					value='<%= std.getPassword()%>' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'><input type='submit' value='Edit & Save' /></td>
-			</tr>
-
-
-		</table>
-	</form>
-
-
+</center>
 </body>
 </head>
 </html>

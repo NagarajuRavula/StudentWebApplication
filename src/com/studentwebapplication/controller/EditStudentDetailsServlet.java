@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.studentwebapplication.model.*;
 import com.studentwebapplication.service.EditStudentDetailsService;
 import com.studentwebapplication.service.StudentManagementService;
@@ -30,6 +32,8 @@ public class EditStudentDetailsServlet extends HttpServlet {
 				.getInstance(StudentManagementServiceImpl.class);
 		String message;
 		RequestDispatcher rd = null;
+		HttpSession session=request.getSession();
+		String logedInUser=(String)session.getAttribute("logedInUser");
 		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
 		FileInputStream fis = null;
 		try {
@@ -70,7 +74,10 @@ public class EditStudentDetailsServlet extends HttpServlet {
 		std.setPassword(request.getParameter("password"));
 		int status = editStudentDetailsService.updateStudent(std);
 		if (status > 0) {
-			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
+			if(logedInUser.equals("admin@gmail.com")){
+			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");}
+			else{
+				rd = request.getRequestDispatcher("./jsp/studentHome.jsp");}
 
 		} else {
 			message = props.getProperty("DATABASE_ERROR");

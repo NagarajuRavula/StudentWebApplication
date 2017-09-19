@@ -24,7 +24,7 @@
 	</div>	
 		<h1>Welcome Admin</h1>
 		<a href="jsp/studentPersonalDetails.jsp">Add Student+</a><br> <br>
-		<a href="index.jsp">Home</a><br> <br>
+        <a href="jsp/login.jsp">Home</a><br> <br>
 		<h3>Students List</h3>
 	</center>
 
@@ -90,6 +90,23 @@
 				}
 			%>
  
+ 
+ <script type="text/javascript">
+ 
+ var close = document.getElementsByClassName("closebtn");
+ var i;
+ console.log(close);
+ console.log(close.length);
+ for (i = 0; i < close.length; i++) {
+     close[i].onclick = function(){
+         var div = this.parentElement;
+         console.log(div);
+         div.style.opacity = "0";
+         setTimeout(function(){ div.style.display = "none"; }, 600);
+         }
+}
+ 
+ </script>
 
 </body>
 </html>

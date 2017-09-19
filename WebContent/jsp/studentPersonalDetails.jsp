@@ -12,7 +12,7 @@
 	<script src="studentDetailsValidation.js"></script>
 	<center>
      <div class="header">
-		<h2 >Student Management Application</h2>
+		<h1>Student Management Application</h1>
 
 	</div>	
 
@@ -24,58 +24,16 @@
 			<%
 				if (message != null) {
 			%>
-			<p><%=message%></p>
+			<p id="message"><%=message%></p>
 			<%
 				}
 			%>
-
-
-<!-- 			<form action="studentEducationDetails.jsp" method="post"> -->
-<!-- 				<table> -->
-<!-- 					<tr> -->
-<!-- 						<p id="nameMessage"></p> -->
-<!-- 						<td>Student Name:</td> -->
-<!-- 						<td><input type="text" name="name" id="name" required -->
-<!-- 							onchange="validateName()"></td> -->
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td>Email:</td> -->
-<!-- 						<td><input type="email" name="email" id="email" required></td> -->
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td>Father Name:</td> -->
-<!-- 						<td><input type="text" name="fatherName" id="fatherName" -->
-<!-- 							required onchange="validateFatherName()"></td> -->
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td>Mother Name:</td> -->
-<!-- 						<td><input type="text" name="motherName" id="motherName" -->
-<!-- 							required onchange="validateMotherName()"></td> -->
-<!-- 					</tr> -->
-
-<!-- 					<tr> -->
-<!-- 						<td>Gender:</td> -->
-<!-- 						<td><input type="radio" name="gender" value="male" checked> -->
-<!-- 							Male <input type="radio" name="gender" value="female"> -->
-<!-- 							Female <input type="radio" name="gender" value="other"> -->
-<!-- 							Other</td> -->
-<!-- 					</tr> -->
-
-
-
-
-<!-- 					<tr> -->
-<!-- 						<td></td> -->
-<!-- 						<td><input type="submit" value="Next" name="action"></td> -->
-<!-- 				</table> -->
-
-<!-- 			</form> -->
 <div class="container">  
-  <form id="contact" action="" method="post">
+  <form id="contact" action="studentEducationDetails.jsp" method="post">
     <h3>Student registration form</h3>
     <h4>Enter the student personal data</h4>
     <fieldset>
-      <input placeholder="Enter name" type="text" name="name" id="name" tabindex="1" required autofocus>
+      <input placeholder="Enter name" type="text" name="name" id="name" tabindex="1"  required autofocus>
     </fieldset>
     <fieldset>
       <input placeholder="Enter Email Address" type="email" id="email" name="email" tabindex="2" required>
@@ -88,15 +46,15 @@
     </fieldset>
     <fieldset>
       <select   name="gender" id="gender" >
+      <option>Gender</option>
        <option>Male</option>
        <option>Female</option>
        <option>Other</option>
        </select>
     </fieldset>
     <fieldset>
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+      <button name="submit" type="submit" id="personal-submit">Next</button>
     </fieldset>
-    <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a></p>
   </form>
 </div>
 
