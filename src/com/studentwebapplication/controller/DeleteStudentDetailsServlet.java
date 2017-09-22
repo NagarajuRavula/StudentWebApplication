@@ -1,9 +1,6 @@
 package com.studentwebapplication.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import com.studentwebapplication.servicefactory.*;
-import com.studentwebapplication.serviceimpl.DeleteStudentDetailsServiceImpl;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.studentwebapplication.beanfactory.*;
 import com.studentwebapplication.service.DeleteStudentDetailsService;
+import com.studentwebapplication.service.impl.DeleteStudentDetailsServiceImpl;
+import com.studentwebapplication.utils.ErrorProperties;
 
 @WebServlet("/delete")
 public class DeleteStudentDetailsServlet extends HttpServlet {
@@ -26,27 +26,18 @@ public class DeleteStudentDetailsServlet extends HttpServlet {
 		deleteStudentDetailsService = (DeleteStudentDetailsService) ObjectFactory
 				.getInstance(DeleteStudentDetailsServiceImpl.class);
 
-		String message = null;
+		String errorMessage = null;
 		RequestDispatcher rd = null;
-		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(
-					"/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
-			props.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
+		Properties props = ErrorProperties.getProperty();
 		int id = Integer.parseInt(request.getParameter("id"));
 		int status = deleteStudentDetailsService.deleteStudent(id);
 		if (status > 0) {
-			message = props.getProperty("DELETE_SUCCESS");
-			request.setAttribute("deleteMessage", message);
+			errorMessage = props.getProperty("DELETE_SUCCESS");
+			request.setAttribute("deleteMessage", errorMessage);
 			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 		} else {
-			message = props.getProperty("DATABASE_ERROR");
-			request.setAttribute("deleteMessage", message);
+			errorMessage = props.getProperty("DATABASE_ERROR");
+			request.setAttribute("deleteMessage", errorMessage);
 			rd = request.getRequestDispatcher(".jsp/adminHome.jsp");
 		}
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import ="com.studentwebapplication.model.Student"
-	import="com.studentwebapplication.serviceimpl.*"
+	import="com.studentwebapplication.service.impl.*"
 	import="com.studentwebapplication.service.*"
-	import="com.studentwebapplication.servicefactory.*"
+	import="com.studentwebapplication.beanfactory.*"
 	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

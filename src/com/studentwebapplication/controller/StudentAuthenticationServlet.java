@@ -1,6 +1,4 @@
 package com.studentwebapplication.controller;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -12,10 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.studentwebapplication.beanfactory.ObjectFactory;
 import com.studentwebapplication.model.Student;
 import com.studentwebapplication.service.StudentManagementService;
-import com.studentwebapplication.servicefactory.ObjectFactory;
-import com.studentwebapplication.serviceimpl.StudentManagementServiceImpl;
+import com.studentwebapplication.service.impl.StudentManagementServiceImpl;
+import com.studentwebapplication.utils.ErrorProperties;
 
 @WebServlet("/authentication")
 public class StudentAuthenticationServlet extends HttpServlet {
@@ -23,25 +22,14 @@ public class StudentAuthenticationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(
-					"/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
-			props.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-
+		Properties props = ErrorProperties.getProperty();
 		final String USERNAME = request.getParameter("email");
 		final String PASSWORD = request.getParameter("password");
 		StudentManagementService studentManagementService = null;
 		HttpSession session=null;
 		session=request.getSession();
 
-		String message;
+		String errorMessage;
 		RequestDispatcher rd = null;
 
 		studentManagementService = (StudentManagementService) ObjectFactory
@@ -50,8 +38,8 @@ public class StudentAuthenticationServlet extends HttpServlet {
 		Student student = studentManagementService.authenticateUser(USERNAME, PASSWORD);
 
 		if (student==null) {
-			message = props.getProperty("INVALID_CREDENTIALS");
-			request.setAttribute("message", message);
+			errorMessage = props.getProperty("INVALID_CREDENTIALS");
+			request.setAttribute("message", errorMessage);
 			rd = request.getRequestDispatcher("./jsp/login.jsp");
 		} else {
 			session.setAttribute("logedInUser", student.getEmail());

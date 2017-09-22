@@ -2,12 +2,17 @@ package com.studentwebapplication.utils;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
-import com.studentwebapplication.servicefactory.*;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+
+import com.studentwebapplication.beanfactory.*;
+
 public class ConnectionUtils {
 	private static Connection con = null;
+	private static org.apache.log4j.Logger log = Logger.getLogger(ConnectionUtils.class);
 
 	private ConnectionUtils() {
 
@@ -15,6 +20,8 @@ public class ConnectionUtils {
 
 	public static Connection getConnection() {
 		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
+		 BasicConfigurator.configure();
+		 log.info("inside conn");
 		FileInputStream fis = null;
 		try {
 
@@ -25,7 +32,7 @@ public class ConnectionUtils {
 					props.getProperty("DB_PASSWORD"));
 
 		} catch (Exception e) {
-			System.out.println(e);
+			log.error(e);
 		}
 
 		return con;

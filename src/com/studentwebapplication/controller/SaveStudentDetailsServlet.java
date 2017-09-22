@@ -1,9 +1,6 @@
 package com.studentwebapplication.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import com.studentwebapplication.servicefactory.*;
-import com.studentwebapplication.serviceimpl.SaveStudentDetailsServiceImpl;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -13,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.studentwebapplication.beanfactory.*;
 import com.studentwebapplication.model.Student;
 import com.studentwebapplication.service.SaveStudentDetailsService;
+import com.studentwebapplication.service.impl.SaveStudentDetailsServiceImpl;
+import com.studentwebapplication.utils.ErrorProperties;
 
 @WebServlet("/save")
 public class SaveStudentDetailsServlet extends HttpServlet {
@@ -26,18 +26,9 @@ public class SaveStudentDetailsServlet extends HttpServlet {
 		SaveStudentDetailsService saveStudentDetailsService = (SaveStudentDetailsService) ObjectFactory
 				.getInstance(SaveStudentDetailsServiceImpl.class);
 
-		String message=null;
-		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
-		FileInputStream fis = null;
+		String errorMessage=null;
+		Properties props = ErrorProperties.getProperty();
 		RequestDispatcher rd = null;
-		try {
-			fis = new FileInputStream(
-					"/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
-			props.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
 		Student std = (Student) ObjectFactory.getInstance(Student.class);
 		std.setName(request.getParameter("name"));
 		std.setEmail(request.getParameter("email"));
@@ -53,8 +44,8 @@ public class SaveStudentDetailsServlet extends HttpServlet {
 		if (status > 0) {
 			rd = request.getRequestDispatcher("./jsp/adminHome.jsp");
 		} else {
-			message = props.getProperty("DATABASE_ERROR");
-			request.setAttribute("message", message);
+			errorMessage = props.getProperty("DATABASE_ERROR");
+			request.setAttribute("message", errorMessage);
 			rd = request.getRequestDispatcher("studentPersonalDetails.jsp");
 
 		}

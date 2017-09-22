@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="com.studentwebapplication.servicefactory.*"
-	import="com.studentwebapplication.serviceimpl.*"
+	import="com.studentwebapplication.beanfactory.*"
+	import="com.studentwebapplication.service.impl.*"
 	import="com.studentwebapplication.service.*"
 	import="java.io.FileInputStream" import="java.io.IOException"
 	import="java.util.Properties"%>

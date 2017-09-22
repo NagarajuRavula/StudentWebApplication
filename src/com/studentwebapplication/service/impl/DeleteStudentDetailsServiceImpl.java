@@ -1,8 +1,8 @@
-package com.studentwebapplication.serviceimpl;
+package com.studentwebapplication.service.impl;
 
+import com.studentwebapplication.beanfactory.*;
 import com.studentwebapplication.dao.SchoolStudentDAO;
-import com.studentwebapplication.servicefactory.*;
-import com.studentwebapplication.daoimpl.SchoolStudentDAOImpl;
+import com.studentwebapplication.dao.impl.SchoolStudentDAOImpl;
 import com.studentwebapplication.service.*;
 
 public class DeleteStudentDetailsServiceImpl implements DeleteStudentDetailsService {

@@ -1,10 +1,6 @@
 package com.studentwebapplication.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import com.studentwebapplication.servicefactory.*;
-import com.studentwebapplication.serviceimpl.EditStudentDetailsServiceImpl;
-import com.studentwebapplication.serviceimpl.StudentManagementServiceImpl;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -15,9 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.studentwebapplication.beanfactory.*;
 import com.studentwebapplication.model.*;
 import com.studentwebapplication.service.EditStudentDetailsService;
 import com.studentwebapplication.service.StudentManagementService;
+import com.studentwebapplication.service.impl.EditStudentDetailsServiceImpl;
+import com.studentwebapplication.service.impl.StudentManagementServiceImpl;
+import com.studentwebapplication.utils.ErrorProperties;
 
 @WebServlet("/edit")
 public class EditStudentDetailsServlet extends HttpServlet {
@@ -30,20 +30,11 @@ public class EditStudentDetailsServlet extends HttpServlet {
 				.getInstance(EditStudentDetailsServiceImpl.class);
 		StudentManagementService studentManagementService = (StudentManagementService) ObjectFactory
 				.getInstance(StudentManagementServiceImpl.class);
-		String message;
+		String errorMessage;
 		RequestDispatcher rd = null;
 		HttpSession session=request.getSession();
 		String logedInUser=(String)session.getAttribute("logedInUser");
-		Properties props = (Properties) ObjectFactory.getInstance(Properties.class);
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(
-					"/home/nagarajur/workspace/StudentWebApplication/src/resources/errorMessage.properties");
-			props.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
+		Properties props = ErrorProperties.getProperty();
 		int id = Integer.valueOf(request.getParameter("id"));
 		String originalEmail = request.getParameter("originalEmail");
 		String email = request.getParameter("email");
@@ -52,9 +43,9 @@ public class EditStudentDetailsServlet extends HttpServlet {
 			boolean status = studentManagementService.isExistingStudent(email);
 			if (status) {
 
-				message = email + "  " + props.getProperty("EXISTING_USER");
+				errorMessage = email + "  " + props.getProperty("EXISTING_USER");
 				request.setAttribute("id", id);
-				request.setAttribute("message", message);
+				request.setAttribute("message", errorMessage);
 				rd = request.getRequestDispatcher("./jsp/editStudentDetails.jsp");
 				rd.forward(request, response);
 				return;
@@ -80,8 +71,8 @@ public class EditStudentDetailsServlet extends HttpServlet {
 				rd = request.getRequestDispatcher("./jsp/studentHome.jsp");}
 
 		} else {
-			message = props.getProperty("DATABASE_ERROR");
-			request.setAttribute("message", message);
+			errorMessage = props.getProperty("DATABASE_ERROR");
+			request.setAttribute("message", errorMessage);
 			request.setAttribute("id", id);
 			rd = request.getRequestDispatcher("./jsp/editStudentDetails.jsp");
 		}
