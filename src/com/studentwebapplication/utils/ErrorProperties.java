@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.studentwebapplication.beanfactory.ObjectFactory;
 
 public class ErrorProperties {
+	private static Logger log = Logger.getLogger(ConnectionUtils.class);
 
 	public static Properties getProperty()
 	{
@@ -24,7 +27,7 @@ public class ErrorProperties {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				log.error(e);
 			}
 		}
 		

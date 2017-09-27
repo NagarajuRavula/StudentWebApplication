@@ -67,7 +67,17 @@ body {
 #editButton {
     width: 100px;
     margin-top: 50px;
-    margin-left: 444px;
+    margin-left: 152px;
+    background-color: bisque;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: -52px;
+    color: brown;
+}
+#backButton {
+    width: 100px;
+    margin-top: 50px;
+        margin-right: 144px;
     background-color: bisque;
     padding-top: 3px;
     padding-bottom: 3px;

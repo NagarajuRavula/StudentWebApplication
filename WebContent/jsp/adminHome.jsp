@@ -14,25 +14,24 @@
 	href=${pageContext.request.contextPath}/style/adminHome.css>
 </head>
 <body>
-<script src=${pageContext.request.contextPath}/js/adminHome.js></script>
+	<script src=${pageContext.request.contextPath}/js/adminHome.js></script>
 
-   
+
 	<center>
-	<div class="header">
-		<h2 >Student Management Application</h2>
+		<div class="header">
+			<h2>Student Management Application</h2>
 
-	</div>	
+		</div>
 		<h1>Welcome Admin</h1>
-		<a href="jsp/studentPersonalDetails.jsp">Add Student+</a><br> <br>
-        <a href="jsp/login.jsp">Home</a><br> <br>
+		<a href=${pageContext.request.contextPath}/jsp/studentPersonalDetails.jsp>Add Student+</a><br> <br>
+		<a href=${pageContext.request.contextPath}/jsp/login.jsp>Home</a><br> <br>
 		<h3>Students List</h3>
 	</center>
 
-<div>
+	<div>
 
-<p id="deleteMessage">
-
-</div>
+		<p id="deleteMessage">
+	</div>
 	<%
 		StudentManagementService studentManagementService = (StudentManagementService) ObjectFactory
 				.getInstance(StudentManagementServiceImpl.class);
@@ -40,73 +39,74 @@
 		List<Student> studentList = studentManagementService.getAllStudents();
 	%>
 	<div class="tableDiv">
-	<table border='1' width='100%'>
-		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Father Name</th>
-			<th>Email</th>
-			<th>Gender</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</tr>
+		<table border='1' width='100%'>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Father Name</th>
+				<th>Email</th>
+				<th>Gender</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
 
-		<%
-			for (Student student : studentList) {
-		%>
-		<tr>
-			<td><%=student.getId()%></td>
-			<td><%=student.getName()%></td>
-			<td><%=student.getFatherName()%></td>
-			<td><%=student.getEmail()%></td>
-			<td><%=student.getGender()%></td>
-			<td><a href='jsp/editStudentDetails.jsp?id=<%=student.getId()%>'>edit</a></td>
-			<td><a href='./delete?id=<%=student.getId()%>'>delete</a></td>
-		</tr>
-
-		<%
-			}
-		%>
-
-	</table>
-	</div>
-	
-	
-	
-
-<%!String message = "";%>
 			<%
-			    
-				message = (String) request.getAttribute("deleteMessage");
+				for (Student student : studentList) {
 			%>
-			<%
-				if (message != null) {
-			%>
-			<div class="alert">
-  <span class="closebtn">&times;</span>  
-  <%=message%>
-</div>
+			<tr>
+				<td><%=student.getId()%></td>
+				<td><%=student.getName()%></td>
+				<td><%=student.getFatherName()%></td>
+				<td><%=student.getEmail()%></td>
+				<td><%=student.getGender()%></td>
+				<%-- 			<td><a href='jsp/editStudentDetails.jsp?id=<%=student.getId()%>'>edit</a></td> --%>
+				<td><a
+					href=${pageContext.request.contextPath}/jsp/editStudentDetails.jsp?id=<%=student.getId()%>>edit</a></td>
+				<td><a href='./delete?id=<%=student.getId()%>'>delete</a></td>
+			</tr>
+
 			<%
 				}
 			%>
- 
- 
- <script type="text/javascript">
- 
- var close = document.getElementsByClassName("closebtn");
- var i;
- console.log(close);
- console.log(close.length);
- for (i = 0; i < close.length; i++) {
-     close[i].onclick = function(){
-         var div = this.parentElement;
-         console.log(div);
-         div.style.opacity = "0";
-         setTimeout(function(){ div.style.display = "none"; }, 600);
-         }
-}
- 
- </script>
+
+		</table>
+	</div>
+
+
+
+
+	<%!String message = "";%>
+	<%
+		message = (String) request.getAttribute("deleteMessage");
+	%>
+	<%
+		if (message != null) {
+	%>
+	<div class="alert">
+		<span class="closebtn">&times;</span>
+		<%=message%>
+	</div>
+	<%
+		}
+	%>
+
+
+	<script type="text/javascript">
+		var close = document.getElementsByClassName("closebtn");
+		var i;
+		console.log(close);
+		console.log(close.length);
+		for (i = 0; i < close.length; i++) {
+			close[i].onclick = function() {
+				var div = this.parentElement;
+				console.log(div);
+				div.style.opacity = "0";
+				setTimeout(function() {
+					div.style.display = "none";
+				}, 600);
+			}
+		}
+	</script>
 
 </body>
 </html>

@@ -33,9 +33,9 @@
 
 <div class="login-page">
   <div class="form">
-    <form class="login-form" action=${pageContext.request.contextPath}/authentication method="post">
-      <input type="email" placeholder="email" name="email" id="name" onchange="checkNameLength()" required />
-      <input type="password" placeholder="password" name="password" id="password" onchange="checkPasswordLength()" required />
+    <form class="login-form" action=${pageContext.request.contextPath}/authentication method="post" onsubmit="return checkPassword()">
+      <input type="email" placeholder="email" name="email" id="name" required />
+      <input type="password" placeholder="password" name="password" id="password"  required />
       <button>login</button>
     </form>
   </div>

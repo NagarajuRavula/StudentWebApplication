@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import com.studentwebapplication.dao.*;
@@ -14,11 +13,10 @@ import com.studentwebapplication.model.Student;
 import com.studentwebapplication.utils.*;
 
 public class SchoolStudentDAOImpl implements SchoolStudentDAO {
-	private static org.apache.log4j.Logger log = Logger.getLogger(SchoolStudentDAO.class);
+	private static Logger log = Logger.getLogger(SchoolStudentDAO.class);
 
 	@Override
 	public int save(Student std) {
-		  BasicConfigurator.configure();
 		Connection con = ConnectionUtils.getConnection();
 		PreparedStatement ps = null;
 
@@ -40,8 +38,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps.setString(10, std.getPassword());
 
 			status = ps.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			log.error(e);
 		} finally {
 			try {
 				ps.close();
@@ -59,7 +57,6 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 	public int delete(int id) {
 
 		Connection con = ConnectionUtils.getConnection();
-		 BasicConfigurator.configure();
 		PreparedStatement ps = null;
 		int status = 0;
 		try {
@@ -67,7 +64,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps.setInt(1, id);
 			status = ps.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		} finally {
 			try {
 				ps.close();
@@ -84,7 +81,6 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 	public int update(Student std) {
 
 		Connection con = ConnectionUtils.getConnection();
-		 BasicConfigurator.configure();
 		PreparedStatement ps = null;
 
 		int status = 0;
@@ -103,8 +99,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			ps.setString(10, std.getPassword());
 			ps.setInt(11, std.getId());
 			status = ps.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			log.error(e);
 		} finally {
 			try {
 				ps.close();
@@ -122,7 +118,6 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
 		List<Student> list = new ArrayList<Student>();
 		Connection con = ConnectionUtils.getConnection();
-		 BasicConfigurator.configure();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -146,7 +141,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		} finally {
 			try {
 				rs.close();
@@ -166,7 +161,6 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
 		Student std = new Student();
 		Connection con = ConnectionUtils.getConnection();
-		 BasicConfigurator.configure();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -189,8 +183,8 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				std.setPassword(rs.getString(11));
 			}
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			log.error(e);
 		} finally {
 			try {
 				rs.close();
@@ -207,9 +201,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 	@Override
 	public Student retrieveUser(String userName) {
 
-		int studentid = 0;
 		Student student = null;
-		 BasicConfigurator.configure();
 		PreparedStatement ps = null;
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
@@ -242,7 +234,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 				ps.close();
 				con.close();
 			} catch (Exception e) {
-				System.err.println(e);
+				log.error(e);
 			}
 		}
 
@@ -254,7 +246,6 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 
 		boolean status = false;
 		PreparedStatement ps = null;
-		 BasicConfigurator.configure();
 		Connection con = ConnectionUtils.getConnection();
 		ResultSet rs = null;
 		try {
@@ -263,7 +254,7 @@ public class SchoolStudentDAOImpl implements SchoolStudentDAO {
 			rs = ps.executeQuery();
 			status = rs.next();
 		} catch (Exception e) {
-			System.out.println(e);
+			log.error(e);
 		} finally {
 
 			try {
